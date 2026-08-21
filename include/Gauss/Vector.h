@@ -59,10 +59,20 @@ class Vector
             std::fill(std::begin(v_), std::end(v_), scalar);
         }
 
+        // Ignore warning C26495 - uninitialized fields
+        #if _MSC_VER
+        #   pragma warning(push)
+        #   pragma warning(disable : 26495)
+        #endif
+
         explicit Vector(UninitializeTag)
         {
             // do nothing
         }
+
+        #if _MSC_VER
+        #   pragma warning(pop)
+        #endif
 
         Vector<T, N>& operator += (const Vector<T, N>& rhs)
         {

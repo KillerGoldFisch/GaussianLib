@@ -74,7 +74,6 @@ void LookAt(AffineMatrix4T<T>& m, const Vector3T<T>& position, const Vector3T<T>
 }
 
 
-
 } // /namespace Gs
 
 

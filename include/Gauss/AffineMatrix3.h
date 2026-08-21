@@ -102,7 +102,7 @@ class AffineMatrix3T
 
         AffineMatrix3T()
         {
-            #ifndef GS_ENABLE_AUTO_INIT
+            #if !GS_DISABLE_AUTO_INIT
             LoadIdentity();
             #endif
         }
@@ -146,10 +146,20 @@ class AffineMatrix3T
                 (*this)(i / columnsSparse, i % columnsSparse) = T(0);
         }
 
+        // Ignore warning C26495 - uninitialized fields
+        #if _MSC_VER
+        #   pragma warning(push)
+        #   pragma warning(disable : 26495)
+        #endif
+
         explicit AffineMatrix3T(UninitializeTag)
         {
             // do nothing
         }
+
+        #if _MSC_VER
+        #   pragma warning(pop)
+        #endif
 
         /**
         \brief Returns a reference to the element at the specified entry.

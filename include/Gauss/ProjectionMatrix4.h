@@ -129,10 +129,20 @@ class ProjectionMatrix4T
         {
         }
 
+        // Ignore warning C26495 - uninitialized fields
+        #if _MSC_VER
+        #   pragma warning(push)
+        #   pragma warning(disable : 26495)
+        #endif
+
         explicit ProjectionMatrix4T(UninitializeTag)
         {
             // do nothing
         }
+
+        #if _MSC_VER
+        #   pragma warning(pop)
+        #endif
 
         ThisType& operator += (const ThisType& rhs)
         {

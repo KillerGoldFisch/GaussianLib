@@ -113,6 +113,12 @@ class Matrix
 
         /* ----- Functions ----- */
 
+        // Ignore warning C26495 - uninitialized fields
+        #if _MSC_VER
+        #   pragma warning(push)
+        #   pragma warning(disable : 26495)
+        #endif
+
         /**
         \brief Default constructor.
         \remarks If the 'GS_DISABLE_AUTO_INIT' is NOT defined, the matrix elements will be initialized. Otherwise, the matrix is in an uninitialized state.
@@ -123,6 +129,10 @@ class Matrix
             Details::MatrixDefaultInitializer<T, Rows, Cols>::Initialize(*this);
             #endif
         }
+                
+        #if _MSC_VER
+        #   pragma warning(pop)
+        #endif
 
         //! Copy constructor.
         Matrix(const ThisType& rhs)
@@ -140,6 +150,12 @@ class Matrix
                 (*this)(i / columns, i % columns) = T(0);
         }
 
+        // Ignore warning C26495 - uninitialized fields
+        #if _MSC_VER
+        #   pragma warning(push)
+        #   pragma warning(disable : 26495)
+        #endif
+
         /**
         \brief Explicitly uninitialization constructor.
         \remarks With this constructor, the matrix is always in an uninitialized state.
@@ -148,6 +164,10 @@ class Matrix
         {
             // do nothing
         }
+
+        #if _MSC_VER
+        #   pragma warning(pop)
+        #endif
 
         /**
         \brief Returns a reference to a single matrix element at the specified location.
