@@ -80,10 +80,20 @@ class SphericalT
             }
         }
 
+        // Ignore warning C26495 - uninitialized fields
+        #if _MSC_VER
+        #   pragma warning(push)
+        #   pragma warning(disable : 26495)
+        #endif
+
         explicit SphericalT(UninitializeTag)
         {
             // do nothing
         }
+
+        #if _MSC_VER
+        #   pragma warning(pop)
+        #endif
 
         //! Returns the squared length of this spherical coordinate. This is simply radius*radius.
         T LengthSq() const
